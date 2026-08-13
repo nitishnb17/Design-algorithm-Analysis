@@ -1,28 +1,40 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <time.h>
 
 int main() {
-    char str[100];
+    clock_t start = clock();
+
+    char str[1000];
     int left = 0, right;
     int palindrome = 1;
+
     printf("Enter a string: ");
     fgets(str, sizeof(str), stdin);
+
     right = strlen(str) - 1;
-    if (str[right] == '\n') {
-        str[right] = '\0';
+
+    // Remove newline
+    if (str[right] == '\n')
         right--;
-    }
+
     while (left < right) {
+
+        // Ignore spaces
         if (str[left] == ' ') {
             left++;
             continue;
         }
+
         if (str[right] == ' ') {
             right--;
             continue;
         }
-        if (tolower(str[left]) != tolower(str[right])) {
+
+    // Compare ignoring case
+        if (tolower((unsigned char)str[left]) !=
+            tolower((unsigned char)str[right])) {
             palindrome = 0;
             break;
         }
@@ -30,8 +42,12 @@ int main() {
         right--;
     }
     if (palindrome)
-        printf("Palindrome\n");
+        printf("The string is a palindrome.\n");
     else
-        printf("Not a palindrome\n");
+        printf("The string is not a palindrome.\n");
+
+    clock_t end = clock();
+    printf("Execution time: %.6f seconds\n",
+           (double)(end - start) / CLOCKS_PER_SEC);
     return 0;
 }
