@@ -1,5 +1,4 @@
 Comparison of binary & linear search 
 lab3:
 all sorting algortihtm 
-
 for both labs time comparision and space comparision.
