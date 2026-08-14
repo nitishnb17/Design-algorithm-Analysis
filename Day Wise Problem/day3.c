@@ -7,7 +7,7 @@
 // Output: 4
 
 // Explanation: 14, 16, 18, 20 is the longest increasing streak.
-// #include <stdio.h>
+#include <stdio.h>
 
 int longestIncreasingStreak(int arr[], int n) {
     // Edge cases
