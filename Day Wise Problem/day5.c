@@ -1,61 +1,26 @@
 #include <stdio.h>
-#include <time.h>
-
-int main(void)
-{
-    unsigned long long number;
-
-    printf("Enter a non-negative integer: ");
-
-    if (scanf("%llu", &number) != 1) {
-        printf("Invalid input.\n");
-        return 1;
-    }
-
-    /* Start measuring algorithm execution time */
-    clock_t startTime = clock();
-
-    int ones = 0;
-    int zeros = 0;
-    int currentOnes = 0;
-    int maximumConsecutiveOnes = 0;
-
-    if (number == 0) {
-        zeros = 1;  /* Binary representation of 0 is "0" */
-    } else {
-        unsigned long long value = number;
-
-        while (value != 0) {
-            if ((value & 1ULL) != 0) {
-                ones++;
-                currentOnes++;
-
-                if (currentOnes > maximumConsecutiveOnes) {
-                    maximumConsecutiveOnes = currentOnes;
-                }
-            } else {
-                zeros++;
-                currentOnes = 0;
-            }
-
-            value >>= 1;
+int main() {
+    int n;
+    int ones = 0, zeros = 0;
+    int current = 0, maxConsecutive = 0;
+    int bit;
+    printf("Enter a number: ");
+    scanf("%d", &n);
+    while (n > 0) {
+        bit = n % 2;
+        if (bit == 1) {
+            ones++;
+            current++;
+            if (current > maxConsecutive)
+                maxConsecutive = current;
+        } 
+        else {
+            zeros++;
+            current = 0;
         }
+        n = n / 2;
     }
-
-    /* Stop measuring execution time */
-    clock_t endTime = clock();
-
-    double executionTime =
-        (double)(endTime - startTime) / CLOCKS_PER_SEC;
-
-    printf("Number of 1s: %d\n", ones);
-    printf("Number of 0s: %d\n", zeros);
-    printf("Maximum consecutive 1s: %d\n",
-           maximumConsecutiveOnes);
-
-    printf("Execution time: %.9f seconds\n", executionTime);
-    printf("Execution time: %.6f milliseconds\n",
-           executionTime * 1000.0);
-
+    printf("a. Number of 1 = %d and Number of 0 = %d\n", ones, zeros);
+    printf("b. Consecutive 1 = %d\n", maxConsecutive);
     return 0;
 }
